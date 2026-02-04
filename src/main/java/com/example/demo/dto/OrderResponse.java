@@ -10,5 +10,5 @@ public class OrderResponse {
     public Double totalAmount;
     public LocalDateTime orderDate;
     public Long userId;
-    public List<OrderItemResponse> items;
+    //public List<OrderItemResponse> items;
 }

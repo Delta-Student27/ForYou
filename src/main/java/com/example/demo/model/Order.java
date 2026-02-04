@@ -3,11 +3,13 @@ package com.example.demo.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.EnumType;
 
 @Entity
 @Table(name = "orders")
@@ -23,6 +25,9 @@ public class Order {
 
     @ManyToOne
     private User user;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     // Getters and Setters
     public Long getId() {
@@ -63,5 +68,11 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public OrderStatus getStatus() {
+        return status;
+    }
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }
