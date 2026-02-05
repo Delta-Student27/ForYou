@@ -11,6 +11,14 @@ import jakarta.persistence.Table;
 @Table(name = "cart_items")
 public class CartItem {
 
+    public CartItem() {}
+
+    public CartItem(Cart cart, Product product, int quantity) {
+        this.cart = cart;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

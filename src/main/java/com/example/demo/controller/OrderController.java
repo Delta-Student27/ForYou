@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.Controller;
 
 import com.example.demo.model.Order;
-import com.example.demo.service.OrderService;
+import com.example.demo.Service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
