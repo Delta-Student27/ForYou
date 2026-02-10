@@ -1,11 +1,14 @@
 package com.example.demo.config;
 
+import com.example.demo.repository.UserRepository;
+import com.example.demo.security.CustomUserDetailsService;
 import com.example.demo.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +33,7 @@ public class SecurityConfig {
                     .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            
 
         return http.build();
     }
@@ -45,6 +49,12 @@ public class SecurityConfig {
 
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+
+    @Bean
+    public UserDetailsService userDetailsService(UserRepository repo){
+        return new CustomUserDetailsService(repo);
     }
 
 
