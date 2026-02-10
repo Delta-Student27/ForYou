@@ -12,6 +12,10 @@ import jakarta.persistence.Table;
 @Table(name = "carts")
 public class Cart {
 
+
+    public Cart() {}
+
+
     public Cart(User user) {
         this.user = user;
     }

@@ -23,11 +23,15 @@ public class Order {
     private double totalAmount;
     private LocalDateTime orderDate = LocalDateTime.now();
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
+
+
     @ManyToOne
     private User user;
 
-    @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    // @Enumerated(EnumType.STRING)
+    // private OrderStatus status;
 
     // Getters and Setters
     public Long getId() {
@@ -69,10 +73,20 @@ public class Order {
     public void setUser(User user) {
         this.user = user;
     }
+<<<<<<< HEAD
     public OrderStatus getStatus() {
         return status;
     }
     public void setStatus(OrderStatus status) {
         this.status = status;
     }
+=======
+
+    public void setStatus(OrderStatus status) {
+    this.status = status;
+    }
+    public OrderStatus getStatus() {
+        return status;
+    }
+>>>>>>> f0d80ba1542935160cb3996ce8e5853cbbf57d09
 }

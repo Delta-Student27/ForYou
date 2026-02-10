@@ -11,13 +11,21 @@ import jakarta.persistence.Table;
 @Table(name = "cart_items")
 public class CartItem {
 
+<<<<<<< HEAD
+=======
+    public CartItem() {}
+
+>>>>>>> f0d80ba1542935160cb3996ce8e5853cbbf57d09
     public CartItem(Cart cart, Product product, int quantity) {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f0d80ba1542935160cb3996ce8e5853cbbf57d09
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
