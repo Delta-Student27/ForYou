@@ -1,10 +1,10 @@
 
 
 
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import com.example.demo.model.Cart;
-import com.example.demo.Service.CartService;
+import com.example.demo.service.CartService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
