@@ -1,5 +1,5 @@
-package com.example.demo.Service.Impl;
-import com.example.demo.Service.CartService;
+package com.example.demo.service.Impl;
+import com.example.demo.service.CartService;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import org.springframework.stereotype.Service;

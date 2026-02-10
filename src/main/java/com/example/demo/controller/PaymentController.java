@@ -1,11 +1,11 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.Service.PaymentService;
+import com.example.demo.service.PaymentService;
 
 @RestController
 @RequestMapping("/api/payment")

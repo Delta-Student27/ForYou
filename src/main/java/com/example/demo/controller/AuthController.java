@@ -1,8 +1,8 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
 
 import com.example.demo.model.User;
 import com.example.demo.security.JwtUtil;
-import com.example.demo.Service.UserService;
+import com.example.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

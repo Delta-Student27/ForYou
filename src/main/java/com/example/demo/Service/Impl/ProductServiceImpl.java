@@ -1,7 +1,7 @@
-package com.example.demo.Service.Impl;
+package com.example.demo.service.Impl;
 
 import java.util.List;
-import com.example.demo.Service.ProductService;
+import com.example.demo.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Product;
