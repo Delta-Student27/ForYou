@@ -18,9 +18,12 @@ import javax.crypto.SecretKey;
 public class JwtUtil {
 
 
-    private final String SECRET = "secret_key_123_secret_key_123_secret_key_123";
+    private final String SECRET ="bXlfc3VwZXJfc2VjcmV0X2tleV9mb3Jfand0X2VuY29kaW5n";
 
-    private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
+    private SecretKey getSigningKey() {
+        byte[] keyBytes = java.util.Base64.getDecoder().decode(SECRET);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
 
     // private final String SECRET = "secret_key_123secret_key_123";
     // private final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
@@ -31,7 +34,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-                .signWith(key)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -40,8 +43,9 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(SECRET)
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
