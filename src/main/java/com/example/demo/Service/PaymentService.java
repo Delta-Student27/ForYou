@@ -1,6 +1,7 @@
-package com.example.demo.Service;
+package com.example.demo.service;
 
 public interface PaymentService {
 
-    String createPayment(Double amount);
+    String processPayment(Long orderId, String email);
+
 }

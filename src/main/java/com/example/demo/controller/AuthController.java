@@ -1,13 +1,17 @@
-package com.example.demo.Controller;
+package com.example.demo.controller;
+
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.User;
 import com.example.demo.security.JwtUtil;
-import com.example.demo.Service.UserService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Map;
+import com.example.demo.service.UserService;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -17,7 +21,9 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService, JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService,
+                          JwtUtil jwtUtil,
+                          PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
@@ -31,25 +37,23 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> request) {
-        try{
-        String email = request.get("email");
-        String password = request.get("password");
+        try {
+            String email = request.get("email");
+            String password = request.get("password");
 
-        // 1. Fetch user from DB
-        User user = userService.getByEmail(email);
+            User user = userService.getByEmail(email);
 
-        // 2. Check password
-        if (!passwordEncoder.matches(password, user.getPassword())) {
-            return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password"));
-        }
+            if (!passwordEncoder.matches(password, user.getPassword())) {
+                return ResponseEntity.status(401)
+                        .body(Map.of("error", "Invalid email or password"));
+            }
 
-        // 3. Generate JWT
-        String token = jwtUtil.generateToken(email);
+            String token = jwtUtil.generateToken(email);
+            return ResponseEntity.ok(Map.of("token", token));
 
-        return ResponseEntity.ok(Map.of("token", token));
-        }catch (Exception e){
-            return ResponseEntity.status(401).body(Map.of("error", "Invalid email or password"));
+        } catch (Exception e) {
+            return ResponseEntity.status(401)
+                    .body(Map.of("error", "Invalid email or password"));
         }
     }
 }
-
