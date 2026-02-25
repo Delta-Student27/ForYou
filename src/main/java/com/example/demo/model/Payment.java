@@ -1,13 +1,6 @@
- package com.example.demo.model;
+package com.example.demo.model;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "payments")
@@ -17,16 +10,20 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String paymentMethod; // CARD, UPI, NETBANKING
-    private String paymentStatus; // SUCCESS, FAILED
-    private String transactionId;
-    private double amount;
-    private LocalDateTime paymentDate = LocalDateTime.now();
+    private String razorpayOrderId;
+    private String razorpayPaymentId;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;   // ✅ ENUM (NOT String)
+
+    private Double amount;
 
     @OneToOne
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    // Getters and Setters
+    // ================= GETTERS & SETTERS =================
+
     public Long getId() {
         return id;
     }
@@ -35,44 +32,36 @@ public class Payment {
         this.id = id;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public String getRazorpayOrderId() {
+        return razorpayOrderId;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setRazorpayOrderId(String razorpayOrderId) {
+        this.razorpayOrderId = razorpayOrderId;
     }
 
-    public String getPaymentStatus() {
+    public String getRazorpayPaymentId() {
+        return razorpayPaymentId;
+    }
+
+    public void setRazorpayPaymentId(String razorpayPaymentId) {
+        this.razorpayPaymentId = razorpayPaymentId;
+    }
+
+    public PaymentStatus getPaymentStatus() {
         return paymentStatus;
     }
 
-    public void setPaymentStatus(String paymentStatus) {
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
 
-    public String getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(String transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
-    }
-
-    public LocalDateTime getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDateTime paymentDate) {
-        this.paymentDate = paymentDate;
     }
 
     public Order getOrder() {
