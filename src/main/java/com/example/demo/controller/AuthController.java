@@ -48,7 +48,14 @@ public class AuthController {
                         .body(Map.of("error", "Invalid email or password"));
             }
 
-            String token = jwtUtil.generateToken(email);
+            String role = user.getRoles()
+                  .iterator()
+                  .next()
+                  .getName()
+                  .name();
+
+            String token = jwtUtil.generateToken( user.getEmail(),
+        role);
             return ResponseEntity.ok(Map.of("token", token));
 
         } catch (Exception e) {

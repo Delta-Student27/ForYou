@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import org.springframework.http.HttpMethod;
 
 @Configuration
 public class SecurityConfig {
@@ -30,6 +30,17 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/api/auth/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/products/**")
+                    .hasAnyRole("USER", "ADMIN")
+
+                    .requestMatchers(HttpMethod.POST, "/api/products/**")
+                    .hasRole("ADMIN")
+
+                    .requestMatchers(HttpMethod.PUT, "/api/products/**")
+                    .hasRole("ADMIN")
+
+                    .requestMatchers(HttpMethod.DELETE, "/api/products/**")
+                    .hasRole("ADMIN")
                     .anyRequest().authenticated()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

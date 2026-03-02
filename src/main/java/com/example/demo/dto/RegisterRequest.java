@@ -21,7 +21,7 @@ public class RegisterRequest {
         return password;
     }
 
-    public RoleName getRole() {
+    public RoleName getRoles() {
         return role;
     }
 
